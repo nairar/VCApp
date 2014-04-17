@@ -1,0 +1,42 @@
+extends layout
+
+
+block content
+
+  div.navbar.navbar-inverse.navbar-fixed-top 
+      div.container
+        div.navbar-header
+          a(href='index', class='navbar-brand') #{title}
+        div.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='login') Sign-in  
+            li
+              a(href='signup') Sign-up!
+
+  div.main.container(style="margin-top:10%")
+    div.row
+        div.col-md-6.col-md-offset-3
+            div.well.well.well-sm
+                form.form-horizontal(action="signup" method="post")
+                    fieldset
+                        legend.text-center New User Sign Up!
+
+                        div.form-group
+                            label.col-md-3.control-label(for = "name") Name
+                            div.col-md-9
+                                input(type="text" placeholder="Your Name" name="name" class="form-control")
+
+                        div.form-group
+                            label.col-md-3.control-label(for = "username") User Name
+                            div.col-md-9
+                                input(type="text" placeholder="Your UserName" name = "username" class="form-control") 
+
+                        div.form-group
+                            label.col-md-3.control-label(for = "Password") Password
+                            div.col-md-9
+                                input(type="password" placeholder="Your Password" name="password" class="form-control")
+
+                        div.form-group
+                            div.col-md-12.text-right
+                                button(type="submit" class="btn btn-primary btn-lg") Sign Up! 

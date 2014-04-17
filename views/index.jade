@@ -1,0 +1,23 @@
+extends layout
+
+
+block content
+  div.navbar.navbar-inverse.navbar-fixed-top
+      div.container
+        div.navbar-header
+          a(href='index', class='navbar-brand') #{title}
+        div.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='login') Sign-in  
+            li
+              a(href='signup') Sign-up!
+  div.main.container
+    
+    h2 Welcome!
+    p(style='white-space: pre;')
+      |To protect your privacy, please Exit and close your browser when you are finished.
+      |*****************************************************
+      |* * * * * * * * * * W A R N I N G * * * * * * * * * *
+      |*****************************************************
+      |Unauthorized users will be prosecuted
