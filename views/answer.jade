@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    .container
+      .row
+        .col-lg-8
+          h1 A Simple Blog Template for Bootstrap 3
+          hr
+          p
+            span.glyphicon.glyphicon-time
+            | Posted on August 24, 2013 at 9:00 PM
+          hr
+          p You know, being a test pilot isn't always the healthiest business in the world.
+          hr
+          h3
+            | Start Bootstrap
+            small 9:41 PM on August 24, 2013
+          p
+            | This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.
+    .well
+      h4 Post Your Answer:
+      form(role='form')
+        .form-group
+          textarea.form-control(rows='3')
+        button.btn.btn-primary(type='submit') Submit
+    hr

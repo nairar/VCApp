@@ -1,0 +1,30 @@
+extends layout
+
+
+block content
+.container
+    .row
+        .col-lg-12
+          h3 Non-table example
+      .row
+        .col-lg-4.col-lg-offset-4
+          input#container-search.form-control(type='search', value='', placeholder='Search...')
+    #searchable-container.container
+      .row.row-padding
+        .col-xs-4 Col 1
+        .col-xs-4 Col 2
+        .col-xs-4 Col 3
+      .row.row-padding
+        .col-xs-4 Another row
+        .col-xs-4 With some
+        .col-xs-4 Other data
+      .row.row-padding
+        .col-xs-4 Lorem
+        .col-xs-4 Ipsum
+        .col-xs-4 Dolor
+      .row.row-padding
+        .col-xs-4 Foo
+        .col-xs-4 Bar
+        .col-xs-4 Baz
+    script(src='//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js')
+    script(src='bootstrap/js/search.js')
