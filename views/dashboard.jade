@@ -1,6 +1,14 @@
 extends layout
 
 block content
+  div.navbar.navbar-inverse.navbar-fixed-top
+      div.container
+        div.navbar-header
+          a(href='index', class='navbar-brand') #{title}
+        div.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='askquestion') Ask Question!
 	h1= name
 	span
 	a(href='/') Home
