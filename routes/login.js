@@ -8,6 +8,7 @@ var MongoServer = require('mongodb').Server;
 var mongoConnectionClient;
 var mongoDBService = require('./connectDB');
 var handleCRUD = require ('./handleCRUD');
+var profile = require ('./profile');
 
 /* Route handling for posting new questions */
 var posting = require('./posts');
@@ -26,11 +27,17 @@ function startServer(app, port){
 	/* Redirect to login page */
 	app.get('/login', onRequest);
 	app.post('/login', onRequest);
+	/* Redirect to profile page */
 	app.get('/dashboard', onRequest);
+	/* Redirect to sign-up page */
 	app.get('/signup', onRequest);
 	app.post('/signup', onRequest);
+	/* Redirect to create new question page */
 	app.get('/createNewQuestion', onRequest);
 	app.post('/createNewQuestion', onRequest);
+
+	app.get('/displayQuestions', onRequest);
+	app.post('/answer', onRequest);
 }
 
 function onRequest(request, response){
@@ -52,6 +59,11 @@ function onRequest(request, response){
 											break;
 			case '/createNewQuestion': 		console.log("Request to create a new question");
 											posting.handleCreateNewQuestion(request, response);
+											break;
+			case '/displayQuestions': 		console.log("Request to display questions posted");
+											profile.getQuestionsPosted(request, response);
+											break;
+			case '/answer': 				console.log("Displaying answers");
 											break;
 		}
 	}

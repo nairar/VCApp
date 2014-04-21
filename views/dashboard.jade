@@ -4,11 +4,18 @@ block content
   div.navbar.navbar-inverse.navbar-fixed-top
       div.container
         div.navbar-header
-          a(href='index', class='navbar-brand') #{title}
+          a(href='/', class='navbar-brand') Home
         div.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a(href='askquestion') Ask Question!
-	h1= name
-	span
-	a(href='/') Home
+              a(href='createNewQuestion', class='navbar-brand') Ask Question!
+            li
+              a(href='displayQuestions', class='navbar-brand') Questions
+
+          ul.nav.navbar-nav.navbar-right 
+            li
+              a(href='createNewQuestion', class='navbar-brand')= name
+
+
+  span
+  
