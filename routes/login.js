@@ -7,6 +7,7 @@ var MongoServer = require('mongodb').Server;
 
 var mongoConnectionClient;
 var mongoDBService = require('./connectDB');
+var handleCRUD = require ('./handleCRUD');
 
 /* Route handling for posting new questions */
 var posting = require('./posts');
@@ -29,6 +30,7 @@ function startServer(app, port){
 	app.get('/signup', onRequest);
 	app.post('/signup', onRequest);
 	app.get('/createNewQuestion', onRequest);
+	app.post('/createNewQuestion', onRequest);
 }
 
 function onRequest(request, response){
@@ -138,7 +140,7 @@ function serveSignup(request, response){
 			upvotes: Number,
 			downvotes: Number
 		});
-		insertData('user', userSchema, newUserData);
+		handleCRUD.insertData('user', userSchema, newUserData);
 		response.redirect('login');
 		response.end();
 		
@@ -147,29 +149,5 @@ function serveSignup(request, response){
 
 
 }
-
-function insertData(schemaType, schema, data){
-	mongoDBService.mongoose.connect(mongoDBService.mongooseURL);
-	if (schemaType == 'user'){
-		var User = mongoDBService.mongoose.model('User', schema);
-		var userData = new User({
-			firstName: data.name,
-			username: data.username,
-			password: data.password
-		});
-		userData.save(function(err){
-			if(err) {
-				console.log("Cannot insert due to " + err);
-				mongoDBService.mongoose.disconnect();
-			}else{
-				console.log("Inserted data");
-				mongoDBService.mongoose.disconnect();
-
-			}
-		});
-
-	}
-}
-
 
 exports.startServer = startServer;	

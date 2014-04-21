@@ -15,6 +15,7 @@ function connectMongo(clientName){
 
 
 exports.connectMongo = connectMongo;
+exports.mongoose = mongoose;
 exports.mongoDBUrl = url;
 exports.mongoDBPort = port;
 exports.nativeMongoParser = native_parser;
