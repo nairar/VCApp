@@ -9,6 +9,7 @@ var mongoConnectionClient;
 var mongoDBService = require('./connectDB');
 var handleCRUD = require ('./handleCRUD');
 var profile = require ('./profile');
+require('./schema/schema');
 
 /* Route handling for posting new questions */
 var posting = require('./posts');
@@ -46,6 +47,9 @@ function onRequest(request, response){
 
 		switch(path){
 			case '/':  						console.log("Requesting main page");
+											serveMain(request, response);
+											break;
+			case '/index':					console.log("Requesting main page");
 											serveMain(request, response);
 											break;
 			case '/login':  				console.log("Requesting login page");
@@ -86,34 +90,33 @@ function serveLogin(req, res){
 		res.end();
 	}
 	/* User will be set in session if the username matches the database entry */
-	else{
-		mongoConnectionClient = mongoDBService.mongoConnectionClient;
-		var db = mongoDBService.connectMongo(mongoConnectionClient);
+	else{		
 		console.log("connected to database.");
 		var receivedUsername = req.body.username;
 		var receivedPassword = req.body.password;
 		var query = {username: receivedUsername, password: receivedPassword};
-		db.open(function(err, db){
+		mongoDBService.db.open(function(err, db){
 
-		db.collection('user').findOne(query, function(err, doc){
+		mongoDBService.db.collection('user').findOne(query, function(err, doc){
 			if (err) {
-				db.close();
+				//mongoDBService.db.close();
 				return res.end();
 
 			}
 			if (!doc) {
 				console.log("No such user!");
-				db.close();
-				res.render('login.jade', {title: 'VCApp'});
+				mongoDBService.db.close();
+				//res.render('login.jade', {title: 'VCApp'});
 				return res.end();
 			}
 			
 			if(receivedPassword == doc.password){
 				console.log("Login success!");
 				res.render('dashboard.jade', {name : doc.firstName});
-				db.close();
+				//mongoDBService.db.close();
 				return res.end();
 			} else{
+
 				res.end();
 			}
 
@@ -141,18 +144,8 @@ function serveSignup(request, response){
 	} else {
 		
 		var newUserData = {name : request.body.name, username: request.body.username, password: request.body.password};
-		var userSchema  = new mongoDBService.mongoose.Schema({
-			firstName: String,
-			lastName: String,
-			username: String,
-			password: String,
-			email: String,
-			reputation: Number,
-			aboutMe: String,
-			upvotes: Number,
-			downvotes: Number
-		});
-		handleCRUD.insertData('user', userSchema, newUserData);
+		var UserSchema = mongoDBService.mongoose.model('user');
+		handleCRUD.insertData('user', UserSchema, newUserData);
 		response.redirect('login');
 		response.end();
 		

@@ -2,15 +2,17 @@ var url = require('url');
 var http = require('http');
 var mongoDBService = require ('./connectDB');
 var handleCRUD = require ('./handleCRUD');
+var schema = require*('./schema/schema');
 var mongoConnectionClient;
 
 
 function handleCreateNewQuestion(req, res){
-    mongoConnectionClient = mongoDBService.mongoConnectionClient;
-    var db = mongoDBService.connectMongo(mongoConnectionClient);
+    
     if (req.method == 'GET') {
         res.render('askquestion.jade', {title: 'Ask a question!'}); 
-        res.end();
+       
+        //mongoDBService.db.close();
+        return res.end();
     }
     else{
     
@@ -22,36 +24,21 @@ function handleCreateNewQuestion(req, res){
         var group = req.body.group;
         var description = req.body.description;
 
-
-        console.log (tagsArray);
+       
         var newQuestionQuery = {"title": title, 
                             "tags": tagsArray,
                             "group": group,
                             "description": description,
                             "username" : username
                           };
+        console.log (tagsArray);
         var ObjectId = mongoDBService.mongoose.Schema.ObjectId;
-        var questionSchema = new mongoDBService.mongoose.Schema({
-            
-
-            "tags": [String],
-            "group": String,
-            "qOrA": {
-                "title": String, 
-                "description": String,
-                "date created": {type: Date, default: Date.now},
-                "score": {type: Number, default: 0},
-                "unanswered": {type: Boolean, default: false},
-                "vote": {type: Boolean, default: false},
-                "username": {type: String, default: "Admin"}
-            },
-            "isQuestion": {type: Boolean, default: true},
-            "questionId": ObjectId
-        });
-
-        handleCRUD.insertData('newQuestion', questionSchema, newQuestionQuery);
-        res.redirect('createNewQuestion.js');
-        res.end();
+        
+        var QuestionSchema = mongoDBService.mongoose.model('newquestions');
+        handleCRUD.insertData('newQuestion', QuestionSchema, newQuestionQuery);
+        res.render('dashboard.jade', {title: 'VCApp'});
+        //mongoDBService.db.close();
+        return res.end();
         
     }
 }

@@ -5,8 +5,8 @@ var mongoDBService = require ('./connectDB');
 function insertData(schemaType, schema, data){
 	mongoDBService.mongoose.connect(mongoDBService.mongooseURL);
 	if (schemaType == 'user'){
-		var User = mongoDBService.mongoose.model('User', schema);
-		var userData = new User({
+		
+		var userData = new schema({
 			firstName: data.name,
 			username: data.username,
 			password: data.password
@@ -24,10 +24,11 @@ function insertData(schemaType, schema, data){
 
 	}
 	else if (schemaType == 'newQuestion'){
-		var newQuestionSchema = mongoDBService.mongoose.model('newQuestion', schema);
-		var newQuestionData = new newQuestionSchema(
+		
+		
+		var newQuestionData = new schema(
 		{
-			tags: data.tagsArray,
+			tags: data.tags,
 			group: data.group,
 			qOrA : {
 				title: data.title,
@@ -36,14 +37,21 @@ function insertData(schemaType, schema, data){
 			}
 
 		});
+
+		console.log (newQuestionData);
 		newQuestionData.save(function (err){
 			if (err) {
+				console.log(err);
 				console.log ("New question insert failed");
-				mongoDBService.mongoose.disconnect();
+				
+				
+				return;
 
 			}else{
 				console.log ("New question inserted");
-				mongoDBService.mongoose.disconnect();
+				
+
+				return;
 			}
 		});
 	}

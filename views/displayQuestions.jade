@@ -3,7 +3,5 @@ link(rel='stylesheet', href='bootstrap/css/question.css')
 block content
   h1 Questions
     ul
-      each question, i in questionList
-        li
-          h1= question.description
-
+      -for q in questionList
+       li #{q.qOrA.description}
