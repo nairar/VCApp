@@ -10,12 +10,12 @@ function getQuestionsPosted(req, res){
 	if (req.method == 'GET') {
 		/* Just fill the page with all results for that particular user*/
 		console.log("questionPostedUsername : " + users.username);
-		search({"qOrA.username" : users.username}, req, res);
+		search({"question.username" : users.username}, req, res);
 	}
 	else {
 		/* Use query to find questions as results of search */
 		var query = { "group" : req.body.searchTextBox ,
-					  "qOrA.username" : users.username};
+					  "question.username" : users.username};
 
 		search(query, req, res);
 		

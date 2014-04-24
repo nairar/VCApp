@@ -3,4 +3,7 @@ extends layout
 block content
     ul
       li
-       h3 Welcome to the answer page
+       h2= #{question.question.title}
+       h3= #{question.question.description}
+       -for comment in question.question.comment
+         li <a href='answer/'+q._id> #{comment}

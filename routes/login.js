@@ -32,9 +32,9 @@
         	app.get('/createNewQuestion', onRequest);
         	app.post('/createNewQuestion', onRequest);
         	/* Display the questions on dashboard */
-        	app.get('/displayQuestions', onRequest);
+            app.get('/displayQuestions', onRequest);
             app.post('/displayQuestions', onRequest);
-        	app.get('/answer', onRequest);
+            app.get('/answer/:id', onRequest);
         }
 
         function onRequest(request, response){
@@ -63,9 +63,9 @@
         			case '/displayQuestions': 		console.log("Request to display questions posted");
         											profile.getQuestionsPosted(request, response);
         											break;
-        			case '/answer': 				console.log("Displaying answers");
+                    case path:console.log("Request to display questions posted");
                                                     posting.getAnswerPage(request, response);
-        											break;
+                                                    break;
         		}
         	}
 

@@ -30,7 +30,7 @@ function insertData(schemaType, schema, data){
 		{
 			tags: data.tags,
 			group: data.group,
-			qOrA : {
+			question : {
 				title: data.title,
 				description: data.description,
 				username: data.username

@@ -22,17 +22,16 @@ var questionSchema = new mongoDBService.mongoose.Schema({
 
             "tags": [String],
             "group": String,
-            "qOrA": {
+            "question": {
                 "title": String, 
                 "description": String,
                 "date created": {type: Date, default: Date.now},
                 "score": {type: Number, default: 0},
                 "unanswered": {type: Boolean, default: false},
                 "vote": {type: Boolean, default: false},
-                "username": {type: String, default: "Admin"}
-            },
-            "isQuestion": {type: Boolean, default: true},
-            "questionId": {type: ObjectId, default: null}
+                "username": {type: String, default: "Admin"},
+                "comment" : [String]
+            }
 });
 
 

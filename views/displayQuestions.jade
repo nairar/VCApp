@@ -9,4 +9,4 @@ block content
     h1 Questions
     ul
        -for q in questionList
-         li <a href='answer'> #{q.qOrA.title}
+         li <a href="answer/:#{q._id}"> #{q.question.title}

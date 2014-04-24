@@ -5,6 +5,9 @@ var mongoDBService = require ('./connectDB');
 var handleCRUD = require ('./handleCRUD');
 var schema = require*('./schema/schema');
 var mongoConnectionClient;
+var mongo = require('mongodb');
+var BSON = mongo.BSONPure;
+
 
 
 function handleCreateNewQuestion(req, res){
@@ -45,4 +48,29 @@ function handleCreateNewQuestion(req, res){
     }
 }
 
+function  getAnswerPage (req, res) {
+    console.log("Working!");
+    console.log(req.params.id);
+    var o_id = new BSON.ObjectID(req.params.id);
+    mongoDBService.db.collection('newquestions').findOne({ "_id" : o_id }, function(err, doc){
+                    if (err) {
+                        console.log(err);
+                        mongoDBService.db.close();
+                        return res.end();
+
+                    }
+                    if (!doc) {
+                        console.log("No such post!");
+                        res.redirect("displayQuestions.jade");
+                        return res.end();
+                    }
+                    console.log ("Entered getAnswerPage");
+                    res.render ("answer.jade", {question : doc});
+                    return res.end ();
+
+                });
+
+}
+
 exports.handleCreateNewQuestion = handleCreateNewQuestion;
+exports.getAnswerPage = getAnswerPage;
