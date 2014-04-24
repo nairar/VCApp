@@ -3,7 +3,7 @@ var mongoDBService = require ('./connectDB');
 
 
 function insertData(schemaType, schema, data){
-	//mongoDBService.mongoose.connect(mongoDBService.mongooseURL);
+	mongoDBService.mongoose.connect(mongoDBService.mongooseURL);
 	if (schemaType == 'user'){
 		
 		var userData = new schema({
@@ -43,14 +43,12 @@ function insertData(schemaType, schema, data){
 			if (err) {
 				console.log(err);
 				console.log ("New question insert failed");
-				
-				
+				mongoDBService.mongoose.disconnect();
 				return;
 
 			}else{
 				console.log ("New question inserted");
-				
-
+				mongoDBService.mongoose.disconnect();
 				return;
 			}
 		});

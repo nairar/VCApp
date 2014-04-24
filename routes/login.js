@@ -95,7 +95,9 @@
         		
         		/* If user trying to login is different from session user, 
                 close the db and restart login process again for new authentication */
-        		mongoDBService.db.close();
+        		if ((req.username != users.username)) {
+                    mongoDBService.db.close();
+                }
 
 
         		mongoDBService.db.open(function(err, db){
