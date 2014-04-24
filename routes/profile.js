@@ -28,6 +28,22 @@ function getQuestionsPosted(req, res){
 
 }
 
+function getQuestionsForUser(req, res){
+{
+		/* Use query to find questions as results of search */
+		var query = {"question.username" : users.username};
+		console.log("Username at : " + users.username);
+		search(query, req, res);
+		
+}
+	
+	//var QuestionSchema = mongoDBService.mongoose.model('newquestions');
+	
+	
+
+
+}
+
 function search(query, req, res){
 
 	mongoDBService.db.collection('newquestions').find(query).toArray(function (err, docs){
@@ -58,3 +74,4 @@ function search(query, req, res){
 }
 
 exports.getQuestionsPosted = getQuestionsPosted;
+exports.getQuestionsForUser = getQuestionsForUser;

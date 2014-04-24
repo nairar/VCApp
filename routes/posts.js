@@ -5,8 +5,7 @@ var mongoDBService = require ('./connectDB');
 var handleCRUD = require ('./handleCRUD');
 var schema = require*('./schema/schema');
 var mongoConnectionClient;
-var mongo = require('mongodb');
-var BSON = mongo.BSONPure;
+var ObjectID = require('mongodb').ObjectID;
 
 
 
@@ -50,8 +49,10 @@ function handleCreateNewQuestion(req, res){
 
 function  getAnswerPage (req, res) {
     console.log("Working!");
-    console.log(req.params.id);
-    var o_id = new BSON.ObjectID(req.params.id);
+    
+   // var o_id = ObjectID.createFromHexString(req.params.id);
+   var o_id =  req.param("id");
+   console.log(o_id);
     mongoDBService.db.collection('newquestions').findOne({ "_id" : o_id }, function(err, doc){
                     if (err) {
                         console.log(err);
@@ -61,7 +62,7 @@ function  getAnswerPage (req, res) {
                     }
                     if (!doc) {
                         console.log("No such post!");
-                        res.redirect("displayQuestions.jade");
+                        res.redirect("displayQuestions");
                         return res.end();
                     }
                     console.log ("Entered getAnswerPage");
