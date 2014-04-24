@@ -1,9 +1,9 @@
 extends layout
 
 block content
+    h2 #{question.question.title}
+    h3 #{question.question.description}
     ul
       li
-       h2= #{question.question.title}
-       h3= #{question.question.description}
        -for comment in question.question.comment
          li <a href='answer/'+q._id> #{comment}

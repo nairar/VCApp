@@ -51,9 +51,10 @@ function  getAnswerPage (req, res) {
     console.log("Working!");
     
    // var o_id = ObjectID.createFromHexString(req.params.id);
-   var o_id =  req.param("id");
+   console.log(req.params.id);
+   var o_id =  req.params.id.substring(1, 25);
    console.log(o_id);
-    mongoDBService.db.collection('newquestions').findOne({ "_id" : o_id }, function(err, doc){
+    mongoDBService.db.collection('newquestions').findOne({ "_id" : new ObjectID(o_id) }, function(err, doc){
                     if (err) {
                         console.log(err);
                         mongoDBService.db.close();
@@ -66,7 +67,9 @@ function  getAnswerPage (req, res) {
                         return res.end();
                     }
                     console.log ("Entered getAnswerPage");
+
                     res.render ("answer.jade", {question : doc});
+                    console.dir (JSON.stringify(doc));
                     return res.end ();
 
                 });

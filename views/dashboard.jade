@@ -14,8 +14,12 @@ block content
 
           ul.nav.navbar-nav.navbar-right 
             li
-              a(href='dashboard', class='navbar-brand')= name
-
-
-  span
-  
+              a(href='dashboard', class='navbar-brand')= user.firstName
+  -for q in questionList
+    .row
+      .span8
+        .row
+          .span8
+            h4
+              strong
+                a(href='#') #{q.question.title}

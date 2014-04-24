@@ -63,7 +63,8 @@
         			case '/displayQuestions': 		console.log("Request to display questions posted");
         											profile.getQuestionsPosted(request, response);
         											break;
-                    case '/answer/':                console.log("Request to display questions posted");
+                    case path:
+                                                    console.log("Request to display questions posted");
                                                     posting.getAnswerPage(request, response);
                                                     break;
         		}
@@ -121,10 +122,10 @@
         				users.username = doc.username;
         				users.password = doc.password;	
                         users.firstName = doc.firstName;			
-        				res.render('dashboard.jade', {user : users});
-                        profile.getQuestionsForUser(req, res);
+        				//res.render('dashboard.jade', {user : users});
+                        profile.getQuestionsForUser(req, res, users);
         				//mongoDBService.db.close();
-        				return res.end();
+        				//return res.end();
         			} else{
         				mongoDBService.db.close();
         				res.end();
