@@ -1,5 +1,6 @@
 var url = require('url');
 var http = require('http');
+var users = require ('./users/user');
 var mongoDBService = require ('./connectDB');
 var handleCRUD = require ('./handleCRUD');
 var schema = require*('./schema/schema');
@@ -16,7 +17,8 @@ function handleCreateNewQuestion(req, res){
     }
     else{
     
-        var username = "guest";
+        var username = users.username;
+        console.log("questionPostedUsername : " + users.username);
         console.log ("current username is :" + username);
 
         var title = req.body.title;

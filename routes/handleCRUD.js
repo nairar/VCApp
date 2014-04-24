@@ -3,7 +3,7 @@ var mongoDBService = require ('./connectDB');
 
 
 function insertData(schemaType, schema, data){
-	mongoDBService.mongoose.connect(mongoDBService.mongooseURL);
+	//mongoDBService.mongoose.connect(mongoDBService.mongooseURL);
 	if (schemaType == 'user'){
 		
 		var userData = new schema({

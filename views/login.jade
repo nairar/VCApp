@@ -2,10 +2,10 @@ extends layout
 
 block content
 
-	h1= title
-	div.contatiner
-		form(action='login', method='post', class="form-signin")
-			h2.form-signin-heading Please sign in
-			input(class = "form-control" type = "text", placeholder = 'Enter Username', name='username', required autofocus)
-			input(class = "form-control" type = "password", value='Enter Password', name='password' placeholder = "Enter Password")
-			button(type = "submit", value="submit" class ="btn btn-lg btn-primary btn-block" ) Sign in
+    h1= title
+    div.container
+        form(action='login', method='post', class="form-signin")
+            h2.form-signin-heading Please sign in
+            input(class = "form-control" type = "text", placeholder = 'Enter Username', name='username', required autofocus)
+            input(class = "form-control" type = "password", value='Enter Password', name='password' placeholder = "Enter Password")
+            button(type = "submit", value="submit" class ="btn btn-lg btn-primary btn-block" ) Sign in

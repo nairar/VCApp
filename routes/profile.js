@@ -1,18 +1,39 @@
 
 var mongoDBService = require ('./connectDB');
 var handleCRUD = require ('./handleCRUD');
+var users = require ('./users/user');
 
 require('./schema/schema');
 
 var mongoConnectionClient;
 function getQuestionsPosted(req, res){
-	var query = { "group" : "NEU"};
+	if (req.method == 'GET') {
+		/* Just fill the page with all results for that particular user*/
+		console.log("questionPostedUsername : " + users.username);
+		search({"qOrA.username" : users.username}, req, res);
+	}
+	else {
+		/* Use query to find questions as results of search */
+		var query = { "group" : req.body.searchTextBox ,
+					  "qOrA.username" : users.username};
+
+		search(query, req, res);
+		
+	}
+	
 	//var QuestionSchema = mongoDBService.mongoose.model('newquestions');
 	
+	
+
+
+}
+
+function search(query, req, res){
+
 	mongoDBService.db.collection('newquestions').find(query).toArray(function (err, docs){
 			
 			if(err){
-				console.log (err)
+				console.log (err);
 				//mongoDBService.db.close();
 				
 				return res.end();
@@ -34,10 +55,6 @@ function getQuestionsPosted(req, res){
 			return res.end();
 		});
 
-
-
 }
-
-
 
 exports.getQuestionsPosted = getQuestionsPosted;
