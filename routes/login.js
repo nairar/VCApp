@@ -81,7 +81,7 @@
         											profile.getQuestionsPosted(request, response);
         											break;
                     case '/displayUsers':           console.log("Request to display users");
-                                                    profile.getUsers(request, response);
+                                                    profile.getUsers(request, response, users);
                                                     break;
                     
 
@@ -183,7 +183,8 @@
         		response.end();	
         	} else {
         		
-        		var newUserData = {name : request.body.name, username: request.body.username, password: request.body.password};
+        		var newUserData = {name : request.body.name, username: request.body.username, password: request.body.password,
+                                  lastname: request.body.lastname, email: request.body.email, aboutme: request.body.aboutme};
         		var UserSchema = mongoDBService.mongoose.model('user');
         		handleCRUD.insertData('user', UserSchema, newUserData);
         		response.redirect('login');

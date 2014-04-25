@@ -1,16 +1,47 @@
 extends layout
 
 block content
-  div.container
-          form(action='displayUsers', method='post', class="form-signin")
-              input.navbar-left(class ="form-control form-signin" type="text",placeholder='Search query',name='searchTextBox',
-               required autofocus)
-              button(class ="btn btn-lg btn-primary btn-block" type="submit",value="submit") Search user
+  div.navbar.navbar-inverse.navbar-fixed-top
+      div.container
+        div.navbar-header
+          a(href='/', class='navbar-brand') Home
+        div.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='createNewQuestion', class='navbar-brand') Ask Question!
+            li
+              a(href='displayQuestions', class='navbar-brand') Questions
+            li
+              a(href='displayUsers', class='navbar-brand') Users
+
+          ul.nav.navbar-nav.navbar-right 
+            li
+              a(href='dashboard', class='navbar-brand') #{user.firstName}
+
+  div.row
+        form(action='displayUsers', method='post', class="form-signin navbar-form")
+         div.form-group(style="padding-top: 5%;")
+            input.form-control(type="text",placeholder='Search query',name='searchTextBox',
+             required autofocus style="margin-left:-16%;")
+            button(class ="btn btn-primary" type="submit",value="submit" style="margin-left : 9%;") Go!
+
   -for user in userList
-    .row
-      .span8
-        .row
-          .span8
-            h4
-              strong
-                a(href='#') #{user.firstName + " " + user.lastName}
+    div.container
+      div.row
+        div.col-xs-12.col-sm-6.col-md-6
+          div.well.well-sm
+            div.row
+              div.col-sm-6.col-md-8
+                h4
+                  | #{user.firstName} #{user.lastName}
+                small
+                  i.glyphicon.glyphicon-user
+                  cite(title='San Francisco, USA')
+                    | #{user.username}
+                    
+                p
+                  i.glyphicon.glyphicon-envelope
+                  | #{user.email}
+                div.btn-group
+                  h4 About Me:
+                  p #{user.aboutMe}

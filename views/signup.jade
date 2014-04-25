@@ -23,9 +23,14 @@ block content
                         legend.text-center New User Sign Up!
 
                         div.form-group
-                            label.col-md-3.control-label(for = "name") Name
+                            label.col-md-3.control-label(for = "name") First Name
                             div.col-md-9
-                                input(type="text" placeholder="Your Name" name="name" class="form-control")
+                                input(type="text" placeholder="Your First Name" name="name" class="form-control")
+
+                        div.form-group
+                            label.col-md-3.control-label(for = "lastname") Last Name
+                            div.col-md-9
+                                input(type="text" placeholder="Your Last Name" name="lastname" class="form-control")
 
                         div.form-group
                             label.col-md-3.control-label(for = "username") User Name
@@ -36,6 +41,16 @@ block content
                             label.col-md-3.control-label(for = "Password") Password
                             div.col-md-9
                                 input(type="password" placeholder="Your Password" name="password" class="form-control")
+
+                        div.form-group
+                            label.col-md-3.control-label(for = "Email") Email
+                            div.col-md-9
+                                input(type="text" placeholder="Your Email" name="email" class="form-control")
+
+                        div.form-group
+                            label.col-md-3.control-label(for = "aboutme") About Me
+                            div.col-md-9
+                                textarea#message.form-control(name='aboutme', placeholder='Please enter about yourself ...', rows='5')
 
                         div.form-group
                             div.col-md-12.text-right

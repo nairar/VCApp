@@ -109,14 +109,14 @@
 	}
 
 
-	function getUsers(req, res) {
-		
+	function getUsers(req, res, user) {
 		var searchText = req.body.searchTextBox;
-		console.log(searchText);
+		var userRegex = ".*" + req.body.searchTextBox + ".*"
+		
 		if (searchText == undefined) {
 			var query = {};	
 		} else {
-			var query = { "firstName" : searchText };	
+			var query = { "firstName" : userRegex };	
 		}
 		
 		mongoDBService.db.collection('user').find(query).toArray(function (err, docs) {
@@ -136,7 +136,7 @@
 				}
 
 				console.log ("Entered8");
-				res.render ('user.jade', {userList : docs});
+				res.render ('user.jade', {userList : docs, user:user});
 				console.log (JSON.stringify(docs));
 				
 				return res.end();

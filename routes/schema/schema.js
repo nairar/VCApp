@@ -11,10 +11,7 @@ var userSchema  = new mongoDBService.mongoose.Schema({
             username: String,
             password: String,
             email: String,
-            reputation: Number,
-            aboutMe: String,
-            upvotes: Number,
-            downvotes: Number
+            aboutMe: String
 });
 
 var questionSchema = new mongoDBService.mongoose.Schema({

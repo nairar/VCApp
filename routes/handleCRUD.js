@@ -9,7 +9,10 @@ function insertData(schemaType, schema, data, callback){
 		var userData = new schema({
 			firstName: data.name,
 			username: data.username,
-			password: data.password
+			password: data.password,
+			lastName: data.lastname,
+			aboutMe: data.aboutme,
+			email: data.email
 		});
 		userData.save(function(err){
 			if(err) {
@@ -18,7 +21,6 @@ function insertData(schemaType, schema, data, callback){
 			}else{
 				console.log("Inserted data");
 				mongoDBService.mongoose.disconnect();
-
 			}
 		});
 
@@ -38,7 +40,6 @@ function insertData(schemaType, schema, data, callback){
 			isComment : data.isComment,
 			isQuestion : data.isQuestion,
 			isAnswer : data.isAnswer
-
 		});
 
 		console.log (newQuestionData);
