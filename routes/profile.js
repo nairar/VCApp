@@ -17,7 +17,7 @@
 			mongoDBService.db.collection('newquestions').ensureIndex( { subject: "question.username" } );
 			mongoDBService.db.collection('newquestions').ensureIndex( { subject: "question.description" } );
 			mongoDBService.db.collection('newquestions').ensureIndex( { subject: "question.comment" } );*/
-			search({}, req, res, users, 'displayQuestions.jade');
+			search({"isQuestion" : true}, req, res, users, 'displayQuestions.jade');
 			
 		}
 		else {
@@ -27,7 +27,7 @@
 								{"question.title" : { $regex: searchRegex}},
 								{"tags" : req.body.searchTextBox},
 								{"question.username" : req.body.searchTextBox},
-								{"question.description" : searchRegex},
+								{"question.description" : { $regex: searchRegex}},
 								{"question.comment" : req.body.searchTextBox}
 								]}; 	
 	
@@ -47,7 +47,7 @@
 	{
 			/* Use query to find questions as results of search */
 			console.log ("Entered getQuestionsForUser");
-			var query = {"question.username" : user.username};
+			var query = {"question.username" : user.username, "isQuestion" : true};
 			console.log("Username at : " + user.username);
 			search(query, req, res, user, 'dashboard.jade');
 			

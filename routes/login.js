@@ -34,16 +34,25 @@
         	/* Display the questions on dashboard */
             app.get('/displayQuestions', onRequest);
             app.post('/displayQuestions', onRequest);
-            app.get('/answer/:id', onRequest);
+
+
+            app.get('/answer/:id',  posting.getAnswerPage);
 
             /* Display all users */
             app.get ('/displayUsers', onRequest);
             app.post ('/displayUsers', onRequest);
+
+            /* Create new comment */
+            app.post ('/answer/createComment/:id', posting.createComment);
         }
 
         function onRequest(request, response){
+                console.log (url.parse(request.url).query);
         		var path = url.parse(request.url).pathname;
+                
+                //console.log(path.match(re_answer));
         		console.log("Received request for " + path + " service");
+                //if (path.match (/answer/^[0-9a-fA-F]{24}$/)
 
         		switch(path){
         			case '/':  						console.log("Requesting main page");
@@ -173,4 +182,7 @@
 
         }
 
+    
+
         exports.startServer = startServer;	
+

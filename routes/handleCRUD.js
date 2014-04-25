@@ -34,7 +34,10 @@ function insertData(schemaType, schema, data, callback){
 				title: data.title,
 				description: data.description,
 				username: data.username
-			}
+			},
+			isComment : data.isComment,
+			isQuestion : data.isQuestion,
+			isAnswer : data.isAnswer
 
 		});
 
@@ -43,12 +46,12 @@ function insertData(schemaType, schema, data, callback){
 			if (err) {
 				console.log(err);
 				console.log ("New question insert failed");
-				mongoDBService.mongoose.disconnect();
+				
 				return;
 
 			}else{
 				console.log ("New question inserted");
-				mongoDBService.mongoose.disconnect();
+				
 				
 
 				callback();
@@ -57,5 +60,41 @@ function insertData(schemaType, schema, data, callback){
 	}
 }
 
+function updateData (schemaType, schema, data, callback){
+	if (schemaType == 'newQuestion'){
+		
+	var questionSchema = new schema ({
+		question :
+				{
+					description : data.description,	
+					username : data.username
+				},
+		isQuestion : data.isQuestion,
+		questionId : data.questionId,
+		isComment : data.isComment
+
+	});
+			
+	console.log ("Entered update data2");
+	console.log (questionSchema);
+	questionSchema.save(function (err){
+		if (err) {
+				console.log(err);
+				console.log ("New question insert failed");
+				
+				return;
+
+		}else{
+				console.log ("New question inserted");
+				
+				callback();
+		}
+	});		
+
+		
+		
+	}
+}
 
 exports.insertData = insertData;
+exports.updateData = updateData;

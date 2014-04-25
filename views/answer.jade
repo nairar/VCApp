@@ -11,15 +11,19 @@ block content
             | #{question.question.datecreated}
           hr
           p #{question.question.description}
-          hr
-          h3
-            small 9:41 PM on August 24, 2013
-          p
-            | This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.
-    .well
-      h4 Post Your Answer:
-      form(role='form')
-        .form-group
-          textarea.form-control(rows='3')
-        button.btn.btn-primary(type='submit') Submit
     hr  
+    -for answer in answers
+      .container
+        .row
+          .col-lg-8
+            p
+              span.glyphicon.glyphicon-time
+              | #{answer.question.datecreated}
+            hr
+            p #{answer.question.description}
+    .well
+        h4 Post Your Answer:
+        form(role='form', action='createComment/:#{question._id.toHexString()}', method='post')
+          .form-group
+            textarea.form-control(rows='3', name='newComment')
+          button.btn.btn-primary(type='submit') Submit

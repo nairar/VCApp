@@ -34,13 +34,17 @@ function handleCreateNewQuestion(req, res){
                             "tags": tagsArray,
                             "group": group,
                             "description": description,
-                            "username" : username
+                            "username" : username,
+                            "isQuestion" : true,
+                            "isComment" : false,
+                            "isAnswer" : false
                           };
         console.log (tagsArray);
         var ObjectId = mongoDBService.mongoose.Schema.ObjectId;
         
         var QuestionSchema = mongoDBService.mongoose.model('newquestions');
         handleCRUD.insertData('newQuestion', QuestionSchema, newQuestionQuery, function (err) {
+            if (err) console.log(err);
             return res.redirect ('dashboard');
         });
         
@@ -70,14 +74,42 @@ function  getAnswerPage (req, res) {
                         return res.end();
                     }
                     console.log ("Entered getAnswerPage");
+                    mongoDBService.db.collection ('newquestions').find({"questionId" : new ObjectID(o_id)}).toArray(function (err, docs){
 
-                    res.render ("answer.jade", {question : doc});
-                    console.dir (JSON.stringify(doc));
-                    return res.end ();
+                        res.render ("answer.jade", {question : doc, answers: docs});
+                        console.dir (JSON.stringify(doc));
+                        return res.end ();    
+                    })
+                    
 
                 });
 
 }
 
+function createComment (req, res) {
+    var newComment = req.body.newComment;
+    
+    if (newComment == undefined) {
+        console.log ("undefined comment");
+        return;
+    }else {
+         var o_id =  req.params.id.substring(1, 25);
+         var query = { 
+                       "isQuestion" : false,
+                       "questionId" : new ObjectID(o_id),
+                       "description" : newComment,
+                       "isComment" : true,
+                       "isAnswer" : false,
+                       "username" : users.username
+                        };
+        var QuestionSchema = mongoDBService.mongoose.model('newquestions');
+        console.log("Entered create comment");
+        handleCRUD.updateData('newQuestion', QuestionSchema, query, function (err) {
+            return res.redirect ('displayQuestions');
+        });
+    }
+}
+
 exports.handleCreateNewQuestion = handleCreateNewQuestion;
 exports.getAnswerPage = getAnswerPage;
+exports.createComment = createComment;

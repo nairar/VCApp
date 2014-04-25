@@ -29,13 +29,11 @@ var questionSchema = new mongoDBService.mongoose.Schema({
                 "score": {type: Number, default: 0},
                 "unanswered": {type: Boolean, default: false},
                 "vote": {type: Boolean, default: false},
-                "username": {type: String, default: "Admin"},
-                "comment" : [{
-                    "description" : String,
-                    "score" : {type: Number, default : 0},
-                    "dateAnswered": {type: Date, default: Date.now}
-                }]
-            }
+                "username": {type: String, default: "Admin"}
+            },
+            "isQuestion" : {type : Boolean, default: true},
+            "questionId" : {type : mongoDBService.mongoose.Schema.ObjectId, default : null},
+            "isComment" : {type : Boolean, default: false}
 });
 
 
