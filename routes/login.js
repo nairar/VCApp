@@ -75,14 +75,17 @@
                                                     profile.getUsers(request, response);
                                                     break;
 
-                    case path :                     if (path.substring(1,9) === "/answer/:"){
+                    case path :                     if (path.substring(0,9) === "/answer/:"){
                                                         console.log("Request to display answerPage");
                                                         posting.getAnswerPage(request, response);
+                                                        break;
                                  
-                                                    } else if(path.substring(1,19) === "/displayQuestions/:")
+                                                    } else if(path.substring(0,19) ===  "/displayQuestions/:"){
                                                         console.log("Request to display questions For Tags");
                                                         profile.getQuestionForTags(request, response);
-                                                    break;
+                                                        break;
+                                                    }
+                                                        
         		}
         	}
 
