@@ -9,15 +9,29 @@
 	function getQuestionsPosted(req, res){
 		if (req.method == 'GET') {
 			/* Just fill the page with all results for that particular user*/
+
 			console.log("questionPostedUsername : " + users.username);
-			search({"question.username" : users.username}, req, res, users);
+			/*mongoDBService.db.collection('newquestions').ensureIndex( { subject: "group" } );
+			mongoDBService.db.collection('newquestions').ensureIndex( { subject: "question.title" } );
+			mongoDBService.db.collection('newquestions').ensureIndex( { subject: "tags" } );
+			mongoDBService.db.collection('newquestions').ensureIndex( { subject: "question.username" } );
+			mongoDBService.db.collection('newquestions').ensureIndex( { subject: "question.description" } );
+			mongoDBService.db.collection('newquestions').ensureIndex( { subject: "question.comment" } );*/
+			search({}, req, res, users, 'displayQuestions.jade');
+			
 		}
 		else {
 			/* Use query to find questions as results of search */
-			var query = { "group" : req.body.searchTextBox ,
-						  "question.username" : users.username};
+			var query = {$or: [ {"group" : req.body.searchTextBox}, 
+								{"question.title" : req.body.searchTextBox},
+								{"tags" : req.body.searchTextBox},
+								{"question.username" : req.body.searchTextBox},
+								{"question.description" : req.body.searchTextBox},
+								{"question.commentcomment" : req.body.searchTextBox}
+								]}; 	
+	
 
-			search(query, req, res, users);
+			search(query, req, res, users, 'displayQuestions.jade');
 			
 		}
 		
@@ -34,7 +48,7 @@
 			console.log ("Entered getQuestionsForUser");
 			var query = {"question.username" : user.username};
 			console.log("Username at : " + user.username);
-			search(query, req, res, user);
+			search(query, req, res, user, 'dashboard.jade');
 			
 	}
 		
@@ -45,7 +59,7 @@
 
 	}
 
-	function search(query, req, res, user){
+	function search(query, req, res, user, url){
 
 		mongoDBService.db.collection('newquestions').find(query).toArray(function (err, docs){
 				
@@ -65,7 +79,7 @@
 				}
 				console.log ("Entered5");
 				
-				res.render ('dashboard.jade', {questionList : docs, user: user});
+				res.render (url, {questionList : docs, user: user});
 				
 				
 				return res.end();
