@@ -1,12 +1,62 @@
 extends layout
 link(rel='stylesheet', href='bootstrap/css/question.css')
 block content
-    div.container
-        form(action='displayQuestions', method='post', class="form-signin")
-            input.navbar-left(class ="form-control form-signin" type="text",placeholder='Search query',name='searchTextBox',
-             required autofocus)
-            button(class ="btn btn-lg btn-primary btn-block" type="submit",value="submit") Go!
-    h1 Questions
-    ul
-       -for q in questionList
-         li <a href="answer/:#{q._id.toHexString()}"> #{q.question.title}
+  div.navbar.navbar-inverse.navbar-fixed-top
+      div.container
+        div.navbar-header
+          a(href='/', class='navbar-brand') Home
+        div.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='createNewQuestion', class='navbar-brand') Ask Question!
+            li
+              a(href='displayQuestions', class='navbar-brand') Questions
+            li
+              a(href='displayUsers', class='navbar-brand') Users
+
+          ul.nav.navbar-nav.navbar-right 
+            li
+              a(href='dashboard', class='navbar-brand') #{user.firstName}
+
+  div.row
+        form(action='displayQuestions', method='post', class="form-signin navbar-form")
+         div.form-group
+            input.form-control(type="text",placeholder='Search query',name='searchTextBox',
+             required autofocus style="margin-left:-16%;")
+            button(class ="btn btn-primary" type="submit",value="submit" style="margin-left : 9%;") Go!
+    
+  if (questionList != null)
+    div.question-list(style = "margin:3%;")
+      -for q in questionList
+        .row
+          .span8
+            .row
+              .span8
+                h4
+                  strong
+                    a(href='answer/:#{q._id.toHexString()}') #{q.question.title}
+            .row
+              .span2  #{q.question.score} votes
+              .span6
+                p #{q.question.description}
+            .row
+              .span8
+                p
+                p
+                  span.glyphicon.glyphicon-user
+                  | by
+                  a(href='#') #{q.question.username}
+                  | |
+                  span.glyphicon.glyphicon-calendar
+                  | #{q.question.datecreated}
+                  | |
+                  span.glyphicon.glyphicon-tags
+                  | Tags :
+                  -for tag in q.tags
+                    a(href='#')
+                      span.label.label-info #{tag}
+        hr
+  else
+    div.question-list(style = "margin:3%;") 
+      p No Questions Posted By You!!!!
+    

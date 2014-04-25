@@ -25,12 +25,16 @@ var questionSchema = new mongoDBService.mongoose.Schema({
             "question": {
                 "title": String, 
                 "description": String,
-                "date created": {type: Date, default: Date.now},
+                "datecreated": {type: Date, default: Date.now},
                 "score": {type: Number, default: 0},
                 "unanswered": {type: Boolean, default: false},
                 "vote": {type: Boolean, default: false},
                 "username": {type: String, default: "Admin"},
-                "comment" : [String]
+                "comment" : [{
+                    "description" : String,
+                    "score" : {type: Number, default : 0},
+                    "dateAnswered": {type: Date, default: Date.now}
+                }]
             }
 });
 

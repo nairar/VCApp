@@ -1,9 +1,25 @@
-extends layout
+extends layoutAnswer
 
 block content
-    h2 #{question.question.title}
-    h3 #{question.question.description}
-    ul
-      li
-       -for comment in question.question.comment
-         li <a href='answer/'+q._id> #{comment}
+    .container
+      .row
+        .col-lg-8
+          h1 #{question.question.title}
+          hr
+          p
+            span.glyphicon.glyphicon-time
+            | #{question.question.datecreated}
+          hr
+          p #{question.question.description}
+          hr
+          h3
+            small 9:41 PM on August 24, 2013
+          p
+            | This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.
+    .well
+      h4 Post Your Answer:
+      form(role='form')
+        .form-group
+          textarea.form-control(rows='3')
+        button.btn.btn-primary(type='submit') Submit
+    hr  

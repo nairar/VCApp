@@ -21,12 +21,13 @@
 			
 		}
 		else {
+			var searchRegex = ".*" + req.body.searchTextBox + ".*"
 			/* Use query to find questions as results of search */
 			var query = {$or: [ {"group" : req.body.searchTextBox}, 
-								{"question.title" : req.body.searchTextBox},
+								{"question.title" : { $regex: searchRegex}},
 								{"tags" : req.body.searchTextBox},
 								{"question.username" : req.body.searchTextBox},
-								{"question.description" : req.body.searchTextBox},
+								{"question.description" : searchRegex},
 								{"question.comment" : req.body.searchTextBox}
 								]}; 	
 	

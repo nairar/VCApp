@@ -27,7 +27,7 @@ block content
               .span8
                 h4
                   strong
-                    a(href='#') #{q.question.title}
+                    a(href='answer/:#{q._id.toHexString()}') #{q.question.title}
             .row
               .span2  #{q.question.score} votes
               .span6
