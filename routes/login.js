@@ -35,6 +35,10 @@
             app.get('/displayQuestions', onRequest);
             app.post('/displayQuestions', onRequest);
             app.get('/answer/:id', onRequest);
+
+            /* Display all users */
+            app.get ('/displayUsers', onRequest);
+            app.post ('/displayUsers', onRequest);
         }
 
         function onRequest(request, response){
@@ -63,8 +67,11 @@
         			case '/displayQuestions': 		console.log("Request to display questions posted");
         											profile.getQuestionsPosted(request, response);
         											break;
+                    case '/displayUsers':           console.log("Request to display users");
+                                                    profile.getUsers(request, response);
+                                                    break;                
                     case path:
-                                                    console.log("Request to display questions posted");
+                                                    console.log("Request to display question and comments");
                                                     posting.getAnswerPage(request, response);
                                                     break;
         		}

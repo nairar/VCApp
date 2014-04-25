@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  div.container
+          form(action='displayUsers', method='post', class="form-signin")
+              input.navbar-left(class ="form-control form-signin" type="text",placeholder='Search query',name='searchTextBox',
+               required autofocus)
+              button(class ="btn btn-lg btn-primary btn-block" type="submit",value="submit") Search user
+  -for user in userList
+    .row
+      .span8
+        .row
+          .span8
+            h4
+              strong
+                a(href='#') #{user.firstName + " " + user.lastName}

@@ -11,10 +11,12 @@ block content
               a(href='createNewQuestion', class='navbar-brand') Ask Question!
             li
               a(href='displayQuestions', class='navbar-brand') Questions
+            li
+              a(href='displayUsers', class='navbar-brand') Users
 
           ul.nav.navbar-nav.navbar-right 
             li
-              a(href='dashboard', class='navbar-brand')= user.firstName
+              a(href='dashboard', class='navbar-brand') #{user.firstName}
   -for q in questionList
     .row
       .span8
@@ -23,3 +25,32 @@ block content
             h4
               strong
                 a(href='#') #{q.question.title}
+        .row
+          .span2
+            #{q.question.score}
+          .span6
+            p #{q.question.title}
+            p
+              a.btn(href='#') Read more
+        .row
+          .span8
+            p
+            p
+              i.icon-user
+              | by
+              a(href='#') #{q.question.username}
+              | |
+              i.icon-calendar
+              | #{q.question.datecreated}
+              | |
+              i.icon-tags
+              | Tags :
+              a(href='#')
+                span.label.label-info Snipp
+              a(href='#')
+                span.label.label-info Bootstrap
+              a(href='#')
+                span.label.label-info UI
+              a(href='#')
+                span.label.label-info growth
+    hr

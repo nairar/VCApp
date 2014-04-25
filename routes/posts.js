@@ -6,6 +6,7 @@ var handleCRUD = require ('./handleCRUD');
 var schema = require*('./schema/schema');
 var mongoConnectionClient;
 var ObjectID = require('mongodb').ObjectID;
+var profile = require('./profile');
 
 
 
@@ -40,9 +41,9 @@ function handleCreateNewQuestion(req, res){
         
         var QuestionSchema = mongoDBService.mongoose.model('newquestions');
         handleCRUD.insertData('newQuestion', QuestionSchema, newQuestionQuery);
-        res.render('dashboard.jade', {title: 'VCApp'});
+        profile.getQuestionsForUser(req, res, users);
         //mongoDBService.db.close();
-        return res.end();
+        
         
     }
 }
