@@ -6,7 +6,7 @@ var handleCRUD = require ('./handleCRUD');
 var schema = require*('./schema/schema');
 var mongoConnectionClient;
 var ObjectID = require('mongodb').ObjectID;
-var profile = require('./profile');
+
 
 
 
@@ -40,8 +40,10 @@ function handleCreateNewQuestion(req, res){
         var ObjectId = mongoDBService.mongoose.Schema.ObjectId;
         
         var QuestionSchema = mongoDBService.mongoose.model('newquestions');
-        handleCRUD.insertData('newQuestion', QuestionSchema, newQuestionQuery);
-        profile.getQuestionsForUser(req, res, users);
+        handleCRUD.insertData('newQuestion', QuestionSchema, newQuestionQuery, function (err) {
+            return res.redirect ('dashboard');
+        });
+        
         //mongoDBService.db.close();
         
         

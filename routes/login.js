@@ -150,8 +150,7 @@
 
 
         function serveProfile(request, response){
-            users.firstName = request.
-        	response.render('dashboard.jade', {name : users.firstName});
+        	profile.getQuestionsForUser(request, response, users);
         }
 
         function serveSignup(request, response){

@@ -2,7 +2,7 @@
 var mongoDBService = require ('./connectDB');
 
 
-function insertData(schemaType, schema, data){
+function insertData(schemaType, schema, data, callback){
 	mongoDBService.mongoose.connect(mongoDBService.mongooseURL);
 	if (schemaType == 'user'){
 		
@@ -49,7 +49,9 @@ function insertData(schemaType, schema, data){
 			}else{
 				console.log ("New question inserted");
 				mongoDBService.mongoose.disconnect();
-				return;
+				
+
+				callback();
 			}
 		});
 	}

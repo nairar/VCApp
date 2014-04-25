@@ -31,6 +31,7 @@
 	function getQuestionsForUser(req, res, user){
 	{
 			/* Use query to find questions as results of search */
+			console.log ("Entered getQuestionsForUser");
 			var query = {"question.username" : user.username};
 			console.log("Username at : " + user.username);
 			search(query, req, res, user);
