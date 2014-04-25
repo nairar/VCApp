@@ -33,10 +33,8 @@
         	app.post('/createNewQuestion', onRequest);
         	/* Display the questions on dashboard */
             app.get('/displayQuestions', onRequest);
+            app.get('/displayQuestions/:id', onRequest);
             app.post('/displayQuestions', onRequest);
-
-
-            app.get('/answer/:id',  posting.getAnswerPage);
 
             /* Display all users */
             app.get ('/displayUsers', onRequest);
@@ -44,6 +42,12 @@
 
             /* Create new comment */
             app.post ('/answer/createComment/:id', posting.createComment);
+            /* Get respective question per page */
+            app.get('/answer/:id', onRequest);
+
+            /* Voteup and down */
+            app.post('/voteup/:id', onRequest);
+            app.post('/votedown/:id', onRequest);
         }
 
         function onRequest(request, response){
@@ -52,7 +56,7 @@
                 
                 //console.log(path.match(re_answer));
         		console.log("Received request for " + path + " service");
-                //if (path.match (/answer/^[0-9a-fA-F]{24}$/)
+                
 
         		switch(path){
         			case '/':  						console.log("Requesting main page");
@@ -66,7 +70,7 @@
         											break;
         			case '/dashboard':   			console.log("Requesting profile page");
         											serveProfile(request, response);
-        											break;
+        							 				break;
         			case '/signup':   				console.log("Requesting sign-up page");
         											serveSignup(request, response);
         											break;
@@ -78,11 +82,20 @@
         											break;
                     case '/displayUsers':           console.log("Request to display users");
                                                     profile.getUsers(request, response);
-                                                    break;                
-                    case path:
-                                                    console.log("Request to display question and comments");
-                                                    posting.getAnswerPage(request, response);
                                                     break;
+                    
+
+                    case path :                     if (path.substring(0,9) === "/answer/:"){
+                                                        console.log("Request to display answerPage");
+                                                        posting.getAnswerPage(request, response);
+                                                        break;
+                                 
+                                                    } else if(path.substring(0,19) ===  "/displayQuestions/:"){
+                                                        console.log("Request to display questions For Tags");
+                                                        profile.getQuestionForTags(request, response);
+                                                        break;
+                                                    }
+                                                        
         		}
         	}
 

@@ -11,6 +11,9 @@ block content
             | #{question.question.datecreated}
           hr
           p #{question.question.description}
+          p
+            a(href='/voteup/:#{question._id}') Vote-up!
+            a(href='/votedown/:#{question._id}') Vote-down!
     hr  
     -for answer in answers
       .container
@@ -21,6 +24,9 @@ block content
               | #{answer.question.datecreated}
             hr
             p #{answer.question.description}
+            p
+              a(href='/voteup/:#{question._id}') Vote-up!
+              a(href='/votedown/:#{question._id}') Vote-down!
     .well
         h4 Post Your Answer:
         form(role='form', action='createComment/:#{question._id.toHexString()}', method='post')

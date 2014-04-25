@@ -2,6 +2,7 @@
 	var mongoDBService = require ('./connectDB');
 	var handleCRUD = require ('./handleCRUD');
 	var users = require ('./users/user');
+	var url = require ('url');
 
 	require('./schema/schema');
 
@@ -43,6 +44,24 @@
 
 	}
 
+	function getQuestionForTags (req, res){
+		var path = url.parse(req.url).pathname;
+		path= path.match (/displayQuestions/g)[0];
+		console.log(path);
+		console.log(req.params.id);
+   		var tagName =  req.params.id.substring(1, req.params.id.length);
+   		var query = {"tags" : tagName};
+		
+   		if (path.length > 1) {
+   			
+   			search(query, req, res, 'displayQuestions.jade');	
+   		}
+   		else {
+   			search(query, req, res, 'displayQuestions.jade');		
+   		}
+		
+	}
+
 	function getQuestionsForUser(req, res, user){
 	{
 			/* Use query to find questions as results of search */
@@ -62,6 +81,7 @@
 
 	function search(query, req, res, user, url){
 
+		
 		mongoDBService.db.collection('newquestions').find(query).toArray(function (err, docs){
 				
 				if(err){
@@ -127,3 +147,4 @@
 	exports.getQuestionsPosted = getQuestionsPosted;
 	exports.getQuestionsForUser = getQuestionsForUser;
 	exports.getUsers = getUsers;
+	exports.getQuestionForTags = getQuestionForTags;
