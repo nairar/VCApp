@@ -17,40 +17,38 @@ block content
           ul.nav.navbar-nav.navbar-right 
             li
               a(href='dashboard', class='navbar-brand') #{user.firstName}
-  -for q in questionList
-    .row
-      .span8
+
+  if (questionList != null)
+    div.question-list(style = "margin:3%;")
+      -for q in questionList
         .row
           .span8
-            h4
-              strong
-                a(href='#') #{q.question.title}
-        .row
-          .span2
-            #{q.question.score}
-          .span6
-            p #{q.question.title}
-            p
-              a.btn(href='#') Read more
-        .row
-          .span8
-            p
-            p
-              i.icon-user
-              | by
-              a(href='#') #{q.question.username}
-              | |
-              i.icon-calendar
-              | #{q.question.datecreated}
-              | |
-              i.icon-tags
-              | Tags :
-              a(href='#')
-                span.label.label-info Snipp
-              a(href='#')
-                span.label.label-info Bootstrap
-              a(href='#')
-                span.label.label-info UI
-              a(href='#')
-                span.label.label-info growth
-    hr
+            .row
+              .span8
+                h4
+                  strong
+                    a(href='#') #{q.question.title}
+            .row
+              .span2  #{q.question.score} votes
+              .span6
+                p #{q.question.description}
+            .row
+              .span8
+                p
+                p
+                  span.glyphicon.glyphicon-user
+                  | by
+                  a(href='#') #{q.question.username}
+                  | |
+                  span.glyphicon.glyphicon-calendar
+                  | #{q.question.datecreated}
+                  | |
+                  span.glyphicon.glyphicon-tags
+                  | Tags :
+                  -for tag in q.tags
+                    a(href='#')
+                      span.label.label-info #{tag}
+        hr
+  else
+    div.question-list(style = "margin:3%;") 
+      p No Questions Posted By You!!!!
