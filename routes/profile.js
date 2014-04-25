@@ -43,6 +43,15 @@
 
 	}
 
+	function getQuestionForTags (req, res){
+		console.log(req.params.id);
+   		var tagName =  req.params.id.substring(1, req.params.id.length);
+   		var query = {"tags" : tagName};
+	
+
+		search(query, req, res, users, 'displayQuestions.jade');
+	}
+
 	function getQuestionsForUser(req, res, user){
 	{
 			/* Use query to find questions as results of search */
@@ -127,3 +136,4 @@
 	exports.getQuestionsPosted = getQuestionsPosted;
 	exports.getQuestionsForUser = getQuestionsForUser;
 	exports.getUsers = getUsers;
+	exports.getQuestionForTags = getQuestionForTags;

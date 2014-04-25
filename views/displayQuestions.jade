@@ -53,7 +53,7 @@ block content
                   span.glyphicon.glyphicon-tags
                   | Tags :
                   -for tag in q.tags
-                    a(href='#')
+                    a(href='displayQuestions/:#{tag}')
                       span.label.label-info #{tag}
         hr
   else
