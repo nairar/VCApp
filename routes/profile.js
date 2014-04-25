@@ -27,7 +27,7 @@
 								{"tags" : req.body.searchTextBox},
 								{"question.username" : req.body.searchTextBox},
 								{"question.description" : req.body.searchTextBox},
-								{"question.commentcomment" : req.body.searchTextBox}
+								{"question.comment" : req.body.searchTextBox}
 								]}; 	
 	
 
